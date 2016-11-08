@@ -1,18 +1,18 @@
 defaults: &defaults
   adapter: postgresql
-  username: nickschwaderer
-  password: my_generic_pass_Password@01
+  username: my_username
+  password: my_password
   encoding: utf8
   host: localhost
 
 development:
-  database: montana_votes
+  database: erldev
   <<: *defaults
 
 test: &test
-  database: erltest2
+  database: erltest
   adapter: postgresql
-  username: rock_and_roll
-  password: rock_and_roll
+  username: 
+  password: 
   encoding: utf8
   host: localhost
