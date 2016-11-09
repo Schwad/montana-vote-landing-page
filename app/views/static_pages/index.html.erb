@@ -1,26 +1,115 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="text-align:center;">
       <!-- headline -->
-      <br><br><br>
-      <div style="margin-left:auto; margin-right:auto; width: 80px;"><i class="fa fa-5x fa-check-square-o" aria-hidden="true"></i></div>
-      <h2>See the balance of the Montana Legislature, in real time, from 8:40pm tonight.</h2>
-
+      <!-- <br><br><br> -->
+      <!-- <div style="margin-left:auto; margin-right:auto; width: 80px;"><i class="fa fa-5x fa-check-square-o" aria-hidden="true"></i></div> -->
+      <h2>Current Balance of Power in the Montana Legislature</h2>
+      <h4><em>Last Updated: <%= Race.maximum(:updated_at) %></em></h4>
     </div>
 
   </div>
   <div class="row">
-    <div class="col-md-3 col-offset-3">
-      <!-- total repubs -->
+    <div class="col-md-3">
+
     </div>
     <div class="col-md-3">
-      <!-- total dems -->
+      <h3 style="text-align:center;">Republican House Seats</h3>
+    </div>
+    <div class="col-md-3">
+      <h3 style="text-align:center;">Democrat House Seats</h3>
     </div>
 
   </div>
   <div class="row">
-    <div class="col-md-8 col-offset-2">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3" style="text-align:center;background-color:	#d9534f;padding-bottom:5px;">
+      <h1><%= TotalCount.last.republican_house %></h1>
+    </div>
+    <div class="col-md-3" style="text-align:center;background-color:#5bc0de;padding-bottom:5px;">
+      <h1><%= TotalCount.last.democrat_house %></h1>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3">
+      <h3 style="text-align:center;">Republican Senate Seats</h3>
+    </div>
+    <div class="col-md-3">
+      <h3 style="text-align:center;">Democrat Senate Seats</h3>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3" style="text-align:center;background-color:	#d9534f;padding-bottom:5px;">
+      <h1><%= TotalCount.last.republican_senate %></h1>
+    </div>
+    <div class="col-md-3" style="text-align:center;background-color:#5bc0de;padding-bottom:5px;">
+      <h1><%= TotalCount.last.democrat_senate %></h1>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
       <!-- individual race results, possibly in table -->
+      <% Race.all.each do |race| %>
+        <div class="row">
+          <div class="col-md-12">
+            <!-- title -->
+            <div class="row">
+              <div class="col-md-12" style="border-bottom: 3px solid black;">
+                <% title = race.house == true ? "House District" : "Senate District" %>
+                <h3 style="margin-left:-15px;"> <%= title %> <%= race.race_name %></h3>
+              </div>
+            </div>
+            <!-- candidate one -->
+            <% if race.first_party == "Democrat" %>
+              <div class="row" style="background-color:#5bc0de;">
+            <% else %>
+              <div class="row" style="background-color:	#d9534f;">
+            <% end %>
+              <div class="col-md-2">
+                <h4><%= race.first_party %></h4>
+              </div>
+              <div class="col-md-4">
+                <h4><%= race.first_name %></h4>
+              </div>
+              <div class="col-md-6">
+                <strong><h3 class="pull-right"><%= race.first_votes %></h3></strong>
+              </div>
+            </div>
+            <!-- candidate two -->
+            <% unless race.second_party.blank? %>
+              <% if race.second_party == "Democrat" %>
+                <div class="row" style="background-color:#5bc0de;">
+              <% else %>
+                <div class="row" style="background-color:	#d9534f;">
+              <% end %>
+                <div class="col-md-2">
+                  <h4><%= race.second_party %></h4>
+                </div>
+                <div class="col-md-4">
+                  <h4><%= race.second_name %></h4>
+                </div>
+                <div class="col-md-6">
+                  <strong><h3 class="pull-right"><%= race.second_votes %></h3></strong>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
   </div>

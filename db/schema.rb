@@ -10,22 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161108212906) do
+ActiveRecord::Schema.define(version: 20161109010524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "races", force: :cascade do |t|
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.text     "democrat_name"
-    t.text     "republican_name"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.text     "first_name"
+    t.text     "second_name"
     t.text     "race_name"
     t.boolean  "house"
-    t.integer  "democrat_votes",   default: 0
-    t.integer  "republican_votes", default: 0
+    t.integer  "first_votes",  default: 0
+    t.integer  "second_votes", default: 0
     t.text     "leader"
-    t.integer  "lead_changes",     default: 0
+    t.integer  "lead_changes", default: 0
+    t.text     "first_party"
+    t.text     "second_party"
+  end
+
+  create_table "total_counts", force: :cascade do |t|
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "republican_senate", default: 0
+    t.integer  "republican_house",  default: 0
+    t.integer  "democrat_senate",   default: 0
+    t.integer  "democrat_house",    default: 0
   end
 
 end
