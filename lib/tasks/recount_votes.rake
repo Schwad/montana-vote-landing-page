@@ -1,7 +1,3 @@
-require 'rubygems'
-require 'oauth'
-require 'json'
-require 'mechanize'
 
 task recount_votes: :environment do
 
