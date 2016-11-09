@@ -18,8 +18,8 @@ task recount_votes: :environment do
         new_race.first_party = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h2')[0].text unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h2')[0].nil?
         new_race.second_name = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h1')[1].text unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h1')[1].nil?
         new_race.second_party = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h2')[1].text unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-d h2')[1].nil?
-        new_race.first_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].text.to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].nil?
-        new_race.second_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].text.to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].nil?
+        new_race.first_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].text.gsub(",", "").to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].nil?
+        new_race.second_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].text.gsub(",", "").to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].nil?
         if hi.search('.wrapper-inside')[i].search('.display-results-box-a h1').text.match(/STATE SENATOR/).nil?
           new_race.house = true
         else
