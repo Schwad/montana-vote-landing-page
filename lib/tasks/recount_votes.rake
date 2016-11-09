@@ -44,7 +44,7 @@ task recount_votes: :environment do
     woah.democrat_senate = Race.where(leader: "Democrat").where(house: false).count
     woah.democrat_house = Race.where(leader: "Republican").where(house: true).count
     woah.save
-    ["Rs currently holding #{TotalCount.last.republican_senate}, Ds holding #{TotalCount.last.democrat_senate} seats in the State Senate. http://montanavotes2016.herokuapp.com/ #mtpol", "Rs currently holding #{TotalCount.last.republican_senate}, Ds holding #{TotalCount.last.democrat_senate} seats in the MT House. http://montanavotes2016.herokuapp.com/ #mtpol"].each do |message_tweet|
+    ["Rs currently holding #{TotalCount.last.republican_senate}, Ds holding #{TotalCount.last.democrat_senate} seats in the State Senate. http://montanavotes2016.herokuapp.com/ #mtpol", "Rs currently holding #{TotalCount.last.republican_house}, Ds holding #{TotalCount.last.democrat_house} seats in the MT House. http://montanavotes2016.herokuapp.com/ #mtpol"].each do |message_tweet|
       #Twitter api auths and tokens
       consumer_key = OAuth::Consumer.new(
         "9rwoU0y9CNvchqEk11p2lg6VQ",
