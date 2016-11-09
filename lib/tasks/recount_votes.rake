@@ -16,9 +16,9 @@ task recount_votes: :environment do
       new_race.first_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].text.to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[0].nil?
       new_race.second_votes = hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].text.to_i unless hi.search('.wrapper-inside')[i].search('.section').search('.display-results-box-f h1')[1].nil?
       if hi.search('.wrapper-inside')[i].search('.display-results-box-a h1').text.match(/STATE SENATOR/).nil?
-        new_race.house = false
-      else
         new_race.house = true
+      else
+        new_race.house = false
       end
 
       if new_race.first_votes > new_race.second_votes
