@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'oauth'
+require 'json'
+require 'mechanize'
+
 task recount_votes: :environment do
 
   i = 26
@@ -39,4 +44,44 @@ task recount_votes: :environment do
   woah.democrat_senate = Race.where(leader: "Democrat").where(house: false).count
   woah.democrat_house = Race.where(leader: "Republican").where(house: true).count
   woah.save
+  ["Rs currently holding #{woah.republican_senate}, Ds holding #{woah.democrat_senate} seats in the State Senate. http://montanavotes2016.herokuapp.com/ #mtpol", "Rs currently holding #{woah.republican_senate}, Ds holding #{woah.democrat_senate} seats in the MT House. http://montanavotes2016.herokuapp.com/ #mtpol"].each do |message_tweet|
+    #Twitter api auths and tokens
+    consumer_key = OAuth::Consumer.new(
+      "9rwoU0y9CNvchqEk11p2lg6VQ",
+      "XcKg7qVm4AKpwJgrhAyGWkfFbWjhwxKGnuosvJjU7Ygd0ALT2f")
+    access_token = OAuth::Token.new(
+      "2890208126-m7PPmDIsKzyUqeS48ls8adqADzYwEzsFUSkHhgZ",
+      "97ZjjdSKI2udjgZjiYrQtsTyxNJHQY5kg3IVDsGRRK4hY")
+
+    baseurl = "https://api.twitter.com"
+    path    = "/1.1/statuses/update.json"
+    address = URI("#{baseurl}#{path}")
+    request = Net::HTTP::Post.new address.request_uri
+
+
+    #Output tweets go here
+    request.set_form_data(
+      "status" => message_tweet,
+    )
+
+    # Set up HTTP.
+    http             = Net::HTTP.new address.host, address.port
+    http.use_ssl     = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+
+    # Issue the request.
+    request.oauth! http, consumer_key, access_token
+    http.start
+    response = http.request request
+
+    # Parse and print the Tweet if the response code was 200
+    tweet = nil
+    if response.code == '200' then
+      tweet = JSON.parse(response.body)
+      puts "Successfully sent #{tweet["text"]}"
+    else
+      puts "Could not send the Tweet! " +
+      "Code:#{response.code} Body:#{response.body}"
+    end
+  end
 end

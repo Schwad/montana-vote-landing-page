@@ -16,6 +16,9 @@
 !/log/.keep
 /tmp
 
+test.rb
+/lib/tasks/recount_votes.rake
+
 # Ignore application configuration
 /config/application.yml
 

@@ -10,6 +10,7 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 gem 'coveralls', require: false
+gem 'oath'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'mechanize'
